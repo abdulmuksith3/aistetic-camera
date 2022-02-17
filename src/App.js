@@ -29,10 +29,6 @@ function App() {
     }
   }, [windowDimensions]);
 
-  useEffect(() => {
-    console.log("isPortrait ",isPortrait)
-  }, [isPortrait]);
-
 
   const handleResize = () => {
     setWindowDimensions(getWindowDimensions());
@@ -41,10 +37,8 @@ function App() {
   const handleCameraSwitch = () => {
     if(facingMode === 'user') {
       setFacingMode("environment")
-      console.log("ENV")
     } else {
       setFacingMode("user")
-      console.log("USER")
     }
   }
 
@@ -55,8 +49,8 @@ function App() {
         method: "GET",
       })
       let res = await response.json()
-      setDevice(res.device.hardwarename)
-      // console.log(res.device.hardwarename)
+      let device = res.device.hardwarename;
+      setDevice(device[0])
     } catch (err) {
       console.log("Error ",err.message)
     }
@@ -64,8 +58,8 @@ function App() {
 
   const WebcamComponent = () => 
     <Webcam 
-      height={isPortrait ? windowDimensions.height/3 : windowDimensions.height/2}
-      width={windowDimensions.width}
+      height={isPortrait ? windowDimensions.height/2.5 : windowDimensions.height/2}
+      width={windowDimensions.width/1.05}
       videoConstraints={{facingMode:facingMode}}
     />
   ;
